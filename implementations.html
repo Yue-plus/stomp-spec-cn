@@ -16,14 +16,14 @@
   limitations under the License.
   Architecture
 -->
-<html lang="en">
+<html lang="cn">
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta content="The Simple Text Oriented Messaging Protocol" name="description"/>
     <meta content="stomp,messaging,mom,middleware,specification" name="keywords"/>
     <meta content="STOMP Specification" name="author"/>
     <link type="text/css" rel="stylesheet" href="styles/impact/css/site.css"/>
-    <title>Implementations</title>
+    <title>实现</title>
   </head>
   <body>
     <div id="navigation">
@@ -31,7 +31,8 @@
 <ul>
 <li><a href="index.html">STOMP</a></li>
 <li><a href="stomp-specification-1.2.html">1.2</a></li>
-<li><a href="implementations.html">Implementations</a></li>
+<li><a href="implementations.html">实现</a></li>
+<li><a target="_blank" href="https://github.com/Yue-plus/stomp-spec-cn">GitHub</a></li>
 </ul>        <div></div>
       </div>
     </div>
@@ -41,7 +42,7 @@
           <img src="images/project-logo.png" alt="STOMP Specification logo"/>
         </div>
         <div class="message">
-<p>The Simple Text Oriented Messaging Protocol</p>
+<p>简单的面向文本的消息传递协议</p>
           <div></div>
         </div>
       </div>
@@ -51,235 +52,235 @@
 <div class="toc">
   <ul style="list-style:none;">
     <li>
-      <a href="#STOMP_Servers">STOMP Servers</a>
+      <a href="#STOMP_Servers">STOMP 服务端</a>
     </li>
     <li>
-      <a href="#STOMP_Clients">STOMP Clients</a>
+      <a href="#STOMP_Clients">STOMP 客户端</a>
     </li>
   </ul>
 </div>
-<h1 id = "STOMP_Servers">STOMP Servers</h1>
+<h1 id = "STOMP_Servers">STOMP 服务端</h1>
 
-<p>Here are the known STOMP compliant message servers:</p>
+<p>以下是已知的符合 STOMP 规范的消息服务端：</p>
 <br/>
 <table class="clients">
   <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Compliance</th>
+    <th>名称</th>
+    <th>描述</th>
+    <th>合规</th>
   </tr>
   <tr>
     <td>
-      <p><a href="http://activemq.apache.org">Apache ActiveMQ</a></p>
+      <p><a target="_blank" href="http://activemq.apache.org">Apache ActiveMQ</a></p>
     </td>
-    <td>the most popular and powerful open source messaging and Integration Patterns server</td>
+    <td>最流行的、功能最强大的开源消息传递与集成模式服务器</td>
     <td>1.0 1.1</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://activemq.apache.org/artemis"> Apache ActiveMQ Artemis</a></p>
+      <p><a target="_blank" href="http://activemq.apache.org/artemis"> Apache ActiveMQ Artemis</a></p>
     </td>
-    <td>Apache ActiveMQ Artemis has a proven non blocking architecture. It delivers outstanding performance.</td>
+    <td>Apache ActiveMQ Artemis 具有经过检验的非阻塞架构。它提供了出色的性能。</td>
     <td>1.0 1.1 1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://activemq.apache.org/apollo">Apache Apollo</a></p>
+      <p><a target="_blank" href="http://activemq.apache.org/apollo">Apache Apollo</a></p>
     </td>
-    <td>a redesigned version of ActiveMQ</td>
+    <td>ActiveMQ 的重新设计版本</td>
     <td>1.0 1.1 1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/hozn/coilmq/">CoilMQ</a></p>
+      <p><a target="_blank" href="https://github.com/hozn/coilmq/">CoilMQ</a></p>
     </td>
-    <td>a lightweight pure Python STOMP broker inspired by StompServer</td>
+    <td>受 StompServer 启发的轻量级纯 Python STOMP 代理</td>
     <td>1.0 1.1 1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://www.germane-software.com/software/Java/Gozirra/">Gozirra</a></p>
+      <p><a target="_blank" href="http://www.germane-software.com/software/Java/Gozirra/">Gozirra</a></p>
     </td>
-    <td>a lightweight Java STOMP broker</td>
+    <td>轻量级 Java STOMP 代理</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://www.jboss.org/hornetq">HornetQ</a></p>
+      <p><a target="_blank" href="http://www.jboss.org/hornetq">HornetQ</a></p>
     </td>
-    <td>puts the buzz in messaging</td>
+    <td>在消息传递中大放异彩</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://www.morbidq.com/">MorbidQ</a></p>
+      <p><a target="_blank" href="http://www.morbidq.com/">MorbidQ</a></p>
     </td>
-    <td>a STOMP publish/subscribe server with absolutely no potential to cluster</td>
+    <td>绝对没有集群潜力的 STOMP 发布/订阅服务器</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://www.rabbitmq.com/plugins.html#rabbitmq-stomp">RabbitMQ</a></p>
+      <p><a target="_blank" href="http://www.rabbitmq.com/plugins.html#rabbitmq-stomp">RabbitMQ</a></p>
     </td>
-    <td>an Erlang-based, multi-protocol broker with full support for STOMP via a plugin</td>
+    <td>基于 Erlang 的多协议代理，通过插件完全支持 STOMP</td>
     <td>1.0 1.1 1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://mrstampy.github.com/Stampy/">Stampy</a></p>
+      <p><a target="_blank" href="http://mrstampy.github.com/Stampy/">Stampy</a></p>
     </td>
-    <td>a Java implementation of the STOMP 1.2 specification</td>
+    <td>STOMP 1.2 规范的 Java 实现</td>
     <td>1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://stompserver.rubyforge.org/">StompServer</a></p>
+      <p><a target="_blank" href="http://stompserver.rubyforge.org/">StompServer</a></p>
     </td>
-    <td>a lightweight pure Ruby STOMP server</td>
+    <td>轻量级的纯 Ruby STOMP 服务器</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://xtomp.tp23.org/">Xtomp</a></p>
+      <p><a target="_blank" href="http://xtomp.tp23.org/">Xtomp</a></p>
     </td>
-    <td>a STOMP message broker written in C based on nginx core</td>
+    <td>一个基于 C 编写的基于 Nginx 核心的 STOMP 消息代理</td>
     <td>1.2</td>
   </tr>
 </table>
-<h1 id = "STOMP_Clients">STOMP Clients</h1>
+<h1 id = "STOMP_Clients">STOMP 客户端</h1>
 
-<p>Here are the known STOMP compliant client libraries:</p>
+<p>以下是已知的符合 STOMP 规范的客户端库：</p>
 <br/>
 <table class="clients">
   <tr>
-    <th>Name</th>
-    <th>Language</th>
-    <th>Description</th>
-    <th>Compliance</th>
+    <th>名称</th>
+    <th>编程语言</th>
+    <th>描述</th>
+    <th>合规</th>
   </tr>
   <tr>
     <td>
-      <p><a href="http://code.google.com/p/activemessaging/">activemessaging</a></p>
+      <p><a target="_blank" href="http://code.google.com/p/activemessaging/">activemessaging</a></p>
     </td>
     <td>Ruby</td>
-    <td>an attempt to bring the simplicity and elegance of Rails development to the world of messaging</td>
+    <td>试图将 Rails 开发的简洁与优雅带入消息传递的世界</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://search.cpan.org/dist/AnyEvent-STOMP/">AnyEvent::STOMP</a></p>
+      <p><a target="_blank" href="http://search.cpan.org/dist/AnyEvent-STOMP/">AnyEvent::STOMP</a></p>
     </td>
     <td>Perl</td>
-    <td>a lightweight event-driven STOMP client</td>
+    <td>轻量级事件驱动的 STOMP 客户端</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://activemq.apache.org/cms/">Apache CMS</a></p>
+      <p><a target="_blank" href="http://activemq.apache.org/cms/">Apache CMS</a></p>
     </td>
     <td>C++</td>
-    <td>is a JMS-like API for C++</td>
+    <td>是用于 C++ 的类似于 JMS 的 API</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://activemq.apache.org/nms/">Apache NMS</a></p>
+      <p><a target="_blank" href="http://activemq.apache.org/nms/">Apache NMS</a></p>
     </td>
-    <td>C# and .Net</td>
-    <td>a JMS-like API for .Net</td>
+    <td>C#、.Net</td>
+    <td>用于 .Net 的类似于 JMS 的 API</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://code.google.com/p/as3-stomp/">as3-stomp</a></p>
+      <p><a target="_blank" href="http://code.google.com/p/as3-stomp/">as3-stomp</a></p>
     </td>
     <td>Flash</td>
-    <td>an actionscript 3 implementation of the STOMP protocol</td>
+    <td>STOMP 协议的 ActionScript3 实现</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://code.google.com/p/delphistompclient/">delphistompclient</a></p>
+      <p><a target="_blank" href="http://code.google.com/p/delphistompclient/">delphistompclient</a></p>
     </td>
-    <td>Delphi and FreePascal</td>
-    <td>a STOMP client for Embarcadero Delphi and FreePascal</td>
+    <td>Delphi、FreePascal</td>
+    <td>Embarcadero Delphi 与 FreePascal 的 STOMP 客户端</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://code.google.com/p/dstomp/">dstomp</a></p>
+      <p><a target="_blank" href="http://code.google.com/p/dstomp/">dstomp</a></p>
     </td>
     <td>Dynamic C</td>
-    <td>a STOMP client library written in Dynamic C for Rabbit</td>
+    <td>一个用 Dynamic C 为 Rabbit 编写的 STOMP 客户端库</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://www.germane-software.com/software/Java/Gozirra/">Gozirra</a></p>
+      <p><a target="_blank" href="http://www.germane-software.com/software/Java/Gozirra/">Gozirra</a></p>
     </td>
     <td>Java</td>
-    <td>a lightweight implementation of the STOMP specification</td>
+    <td>STOMP 规范的轻量级实现</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://code.google.com/p/hxstomp/">hxStomp</a></p>
+      <p><a target="_blank" href="http://code.google.com/p/hxstomp/">hxStomp</a></p>
     </td>
     <td>Haxe</td>
-    <td>a TCP socket-based STOMP protocol client library written for the Haxe language</td>
+    <td>为 Haxe 语言编写的基于 TCP 套接字的 STOMP 协议客户端库</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://search.cpan.org/dist/Net-Stomp/">Net::Stomp</a></p>
+      <p><a target="_blank" href="http://search.cpan.org/dist/Net-Stomp/">Net::Stomp</a></p>
     </td>
     <td>Perl</td>
-    <td>a Streaming Text Orientated Messaging Protocol client</td>
+    <td>流文本定向消息协议客户端</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://search.cpan.org/dist/Net-STOMP-Client/">Net::STOMP::Client</a></p>
+      <p><a target="_blank" href="http://search.cpan.org/dist/Net-STOMP-Client/">Net::STOMP::Client</a></p>
     </td>
     <td>Perl</td>
-    <td>STOMP object oriented client module</td>
+    <td>STOMP 面向对象的客户端模块</td>
     <td>1.0 1.1 1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/juretta/objc-stomp">objc-stomp</a></p>
+      <p><a target="_blank" href="https://github.com/juretta/objc-stomp">objc-stomp</a></p>
     </td>
     <td>Objective-C</td>
-    <td>a simple STOMP client based on AsynSocket</td>
+    <td>一个基于 AsynSocket 的简单 STOMP 客户端</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/nmaletm/objc-stomp">objc-stomp/WebSocket</a></p>
+      <p><a target="_blank" href="https://github.com/nmaletm/objc-stomp">objc-stomp/WebSocket</a></p>
     </td>
     <td>Objective-C</td>
-    <td>a simple STOMP/WebSocket client based on objc-stomp and SocketRocket</td>
+    <td>一个基于 objc-stomp 与 SocketRocket 的简单 STOMP/WebSocket 客户端</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://search.cpan.org/dist/POE-Component-Client-Stomp/">POE::Component::Client::Stomp</a></p>
+      <p><a target="_blank" href="http://search.cpan.org/dist/POE-Component-Client-Stomp/">POE::Component::Client::Stomp</a></p>
     </td>
     <td>Perl</td>
-    <td>a Perl extension for the POE Environment</td>
+    <td>POE 环境的 Perl 扩展</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://rubygems.org/gems/onstomp">onstomp</a></p>
+      <p><a target="_blank" href="https://rubygems.org/gems/onstomp">onstomp</a></p>
     </td>
     <td>Ruby</td>
-    <td>client library for message passing with brokers that support the STOMP protocol</td>
+    <td>客户端库，用于与支持 STOMP 协议的代理传递消息</td>
     <td>1.0 1.1</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://modules.gotpike.org/module&#95;info.html?module&#95;id=24">Public.Protocols.Stomp</a></p>
+      <p><a target="_blank" href="http://modules.gotpike.org/module&#95;info.html?module&#95;id=24">Public.Protocols.Stomp</a></p>
     </td>
     <td>Pike</td>
     <td>Public.Protocols.Stomp</td>
@@ -287,162 +288,162 @@
   </tr>
   <tr>
     <td>
-      <p><a href="http://code.google.com/p/pyactivemq/">pyactivemq</a></p>
+      <p><a target="_blank" href="http://code.google.com/p/pyactivemq/">pyactivemq</a></p>
     </td>
     <td>Python</td>
-    <td>module for communicating with the ActiveMQ message broker</td>
+    <td>与 ActiveMQ 消息代理进行通信的模块</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/reactphp/stomp">React/STOMP</a></p>
+      <p><a target="_blank" href="https://github.com/reactphp/stomp">React/STOMP</a></p>
     </td>
     <td>PHP</td>
-    <td>STOMP bindings for React</td>
+    <td>React 的 STOMP 绑定</td>
     <td>1.1</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/stomp-js/rx-stomp/">rx-stomp</a></p>
+      <p><a target="_blank" href="https://github.com/stomp-js/rx-stomp/">rx-stomp</a></p>
     </td>
     <td>JavaScript</td>
-    <td>a full-featured STOMP implementation for JavaScript/TypeScript exposed as RxJS primitives</td>
+    <td>一个 JavaScript/TypeScript 的全功能 STOMP 实现，公开为 RxJS 原语</td>
     <td>1.0 1.1 1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://code.google.com/p/simplisticstompclient/">simplisticstompclient</a></p>
+      <p><a target="_blank" href="http://code.google.com/p/simplisticstompclient/">simplisticstompclient</a></p>
     </td>
     <td>PHP</td>
-    <td>a simpler STOMP client for PHP</td>
+    <td>一个更简单的 PHP STOMP 客户端</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://mrstampy.github.com/Stampy/">Stampy</a></p>
+      <p><a target="_blank" href="http://mrstampy.github.com/Stampy/">Stampy</a></p>
     </td>
     <td>Java</td>
-    <td>a Java implementation of the STOMP 1.2 specification</td>
+    <td>STOMP 1.2 规范的 Java 实现</td>
     <td>1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://pecl.php.net/package/stomp">stomp</a></p>
+      <p><a target="_blank" href="http://pecl.php.net/package/stomp">stomp</a></p>
     </td>
     <td>PHP</td>
-    <td>STOMP client extension</td>
+    <td>STOMP 客户端扩展</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://rubygems.org/gems/stomp">stomp</a></p>
+      <p><a target="_blank" href="https://rubygems.org/gems/stomp">stomp</a></p>
     </td>
     <td>Ruby</td>
-    <td>client for the STOMP messaging protocol</td>
+    <td>STOMP 消息传递协议的客户端</td>
     <td>1.0 1.1 1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://code.google.com/p/stomper/">stomper</a></p>
+      <p><a target="_blank" href="http://code.google.com/p/stomper/">stomper</a></p>
     </td>
     <td>Python</td>
-    <td>a client implementation of the STOMP protocol</td>
+    <td>STOMP 协议的客户端实现</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://www.hccp.org/erlang-stomp-client.html">stomp.erl</a></p>
+      <p><a target="_blank" href="http://www.hccp.org/erlang-stomp-client.html">stomp.erl</a></p>
     </td>
     <td>Erlang</td>
-    <td>a STOMP client for Erlang</td>
+    <td>Erlang 的 STOMP 客户端</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/nikipore/stompest">stompest</a></p>
+      <p><a target="_blank" href="https://github.com/nikipore/stompest">stompest</a></p>
     </td>
     <td>Python</td>
-    <td>a full-featured STOMP implementation for Python including both synchronous and asynchronous clients</td>
+    <td>适用于 Python 的全功能 STOMP 实现，包括同步与异步客户端</td>
     <td>1.0 1.1 1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/stomp-js/stompjs/">stompjs</a></p>
+      <p><a target="_blank" href="https://github.com/stomp-js/stompjs/">stompjs</a></p>
     </td>
     <td>JavaScript</td>
-    <td>a full-featured STOMP implementation for JavaScript/TypeScript</td>
+    <td>JavaScript/TypeScript 的全功能 STOMP 实现</td>
     <td>1.0 1.1 1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/mobile-web-messaging/StompKit/">StompKit</a></p>
+      <p><a target="_blank" href="https://github.com/mobile-web-messaging/StompKit/">StompKit</a></p>
     </td>
     <td>Objective-C</td>
-    <td>modern event-driven Objective-C library for STOMP</td>
+    <td>用于 STOMP 的现代事件驱动的 Objective-C 库</td>
     <td>1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://pypi.python.org/pypi/stompy">stompy</a></p>
+      <p><a target="_blank" href="https://pypi.python.org/pypi/stompy">stompy</a></p>
     </td>
     <td>Python</td>
-    <td>implementation of the STOMP protocol in Python</td>
+    <td>STOMP 协议在 Python 中的实现</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/gmallard/stompngo">stompngo</a></p>
+      <p><a target="_blank" href="https://github.com/gmallard/stompngo">stompngo</a></p>
     </td>
     <td>Go</td>
-    <td>a STOMP 1.1+ Client Package</td>
+    <td>STOMP 1.1+ 客户端软件包</td>
     <td>1.0 1.1 1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://stomp.fusesource.org/documentation/php/book.html">stomp-php</a></p>
+      <p><a target="_blank" href="http://stomp.fusesource.org/documentation/php/book.html">stomp-php</a></p>
     </td>
     <td>PHP</td>
-    <td>the FuseSource PHP client implementation</td>
+    <td>FuseSource PHP 客户端实现</td>
     <td>1.0</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/jasonrbriggs/stomp.py">stomp.py</a></p>
+      <p><a target="_blank" href="https://github.com/jasonrbriggs/stomp.py">stomp.py</a></p>
     </td>
     <td>Python</td>
-    <td>a Python client library which can also be run as a standalone, command-line client for testing.</td>
+    <td>Python 客户端库，该客户端库也可以作为独立的命令行客户端运行以进行测试。</td>
     <td>1.0 1.1 1.2</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/wpjunior/torstomp">torstomp</a></p>
+      <p><a target="_blank" href="https://github.com/wpjunior/torstomp">torstomp</a></p>
     </td>
     <td>Python</td>
-    <td>A simple simple client written for tornado framework</td>
+    <td>一个为 tornado 框架编写的简单客户端</td>
     <td>1.1</td>
   </tr>
   <tr>
     <td>
-      <p><a href="http://jmesnil.net/stomp-websocket/doc/">stomp.js</a></p>
+      <p><a target="_blank" href="http://jmesnil.net/stomp-websocket/doc/">stomp.js</a></p>
     </td>
     <td>JavaScript</td>
-    <td>is a JavaScript library for Web browsers using STOMP Over HTML Web Sockets</td>
+    <td>是使用 STOMP Over HTML Web 套接字的 Web 浏览器的 JavaScript库</td>
     <td>1.0 1.1</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/siemens/tstomp">tStomp</a></p>
+      <p><a target="_blank" href="https://github.com/siemens/tstomp">tStomp</a></p>
     </td>
     <td>TCL</td>
-    <td>a STOMP Implementation for TCL</td>
+    <td>TCL 的 STOMP 实现</td>
     <td>1.1</td>
   </tr>
   <tr>
     <td>
-      <p><a href="https://github.com/zendframework/ZendQueue">Zend&#95;Queue</a></p>
+      <p><a target="_blank" href="https://github.com/zendframework/ZendQueue">Zend&#95;Queue</a></p>
     </td>
     <td>PHP</td>
-    <td>for Zend PHP clients</td>
+    <td>适用于 Zend PHP 客户端</td>
     <td>1.0</td>
   </tr>
 </table>
@@ -450,5 +451,6 @@
         <div></div>
       </div>
     </div>
+    <footer style="text-align: center;">赣ICP备19008355号</footer>
   </body>
 </html>
