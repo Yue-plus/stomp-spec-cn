@@ -16,14 +16,14 @@
   limitations under the License.
   Architecture
 -->
-<html lang="en">
+<html lang="cn">
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta content="The Simple Text Oriented Messaging Protocol" name="description"/>
     <meta content="stomp,messaging,mom,middleware,specification" name="keywords"/>
     <meta content="STOMP Specification" name="author"/>
     <link type="text/css" rel="stylesheet" href="styles/impact/css/site.css"/>
-    <title>STOMP</title>
+    <title>STOMP 协议规范中文站</title>
   </head>
   <body>
     <div id="navigation">
@@ -31,7 +31,7 @@
 <ul>
 <li><a href="index.html">STOMP</a></li>
 <li><a href="stomp-specification-1.2.html">1.2</a></li>
-<li><a href="implementations.html">Implementations</a></li>
+<li><a href="implementations.html">实现</a></li>
 </ul>        <div></div>
       </div>
     </div>
@@ -41,7 +41,7 @@
           <img src="images/project-logo.png" alt="STOMP Specification logo"/>
         </div>
         <div class="message">
-<p>The Simple Text Oriented Messaging Protocol</p>
+<p>简单的面向文本的消息传递协议</p>
           <div></div>
         </div>
       </div>
@@ -49,62 +49,62 @@
     <div id="content">
       <div class="wrapper">
 <div class="left">
-  <h1 id = "What_is_it_">What is it?</h1>
+  <h1 id = "What_is_it_">这是啥？</h1>
 </div>
 <div class="right">
-  <p>STOMP is the Simple (or Streaming) Text Orientated Messaging Protocol.</p>
+  <p>STOMP 是一个简单（流式）面向文本的消息传输协议。</p>
 
-  <p>STOMP provides an interoperable wire format so that STOMP clients can
-  communicate with any STOMP message broker to provide easy and widespread
-  messaging interoperability among many languages, platforms and brokers.</p>
+  <p>STOMP 提供了一种可互操作的连接格式，
+    这样 STOMP 客户端就可以与任何 STOMP 消息代理通信，
+    从而在多种语言、平台与代理之间提供简单而广泛的消息互操作性。</p>
 </div>
 <div class="left">
-  <h1 id = "Simple_Design">Simple Design</h1>
+  <h1 id = "Simple_Design">设计简单</h1>
 </div>
 <div class="right">
-  <p>STOMP is a very simple and easy to implement protocol, coming from the HTTP
-  school of design; the server side may be hard to implement well, but it is very
-  easy to write a client to get yourself connected. For example you can use
-  Telnet to login to any STOMP broker and interact with it&#33;</p>
+  <p>STOMP 是一个非常简单，
+    易于实现的协议，来自 HTTP 设计学院。
+    服务器端可能很难很好地实现，但是编写客户端以使自己连接起来非常容易。
+    例如，可以使用 Telnet 登录到任何 STOMP 代理并与之交互！</p>
 
-  <p>Many developers have told us that they have managed to write a STOMP client in
-  a couple of <em>hours</em> to in their particular language, runtime or platform
-  into the STOMP network. So if your favored language/runtime of choice does not
-  offer a good enough STOMP client don't be afraid to write one.</p>
+  <p>许多开发者告诉我们，
+    他们已经在几个 <em>小时</em> 内设法将 STOMP 客户端以其特定的语言、运行时或平台编写到 STOMP 网络中。
+    因此，如果你偏爱的语言/运行时不能提供足够好的 STOMP 客户端，
+    不妨试试编写一种。</p>
   <div></div>
 </div>
 <div class="left">
-  <h1 id = "Get_It">Get It</h1>
+  <h1 id = "Get_It">获取</h1>
   <div></div>
 </div>
 <div class="right">
-  <p>The latest version of the specification can be found at:</p>
+  <p>该规范的最新版本可在以下网址找到：</p>
 
   <ul>
-  <li><a href="stomp-specification-1.2.html">STOMP 1.2</a> Released on 10/22/2012</li>
+  <li><a href="stomp-specification-1.2.html">STOMP 1.2</a> 发布于 2012/10/22</li>
   </ul>
 
-  <p>The older version of the specification can also be accessed at:</p>
+  <p>规范的旧版本也可以在以下位置访问：</p>
 
   <ul>
-  <li><a href="stomp-specification-1.1.html">STOMP 1.1</a> <br/></li>
-  <li><a href="stomp-specification-1.0.html">STOMP 1.0</a></li>
+  <li><a href="http://stomp.github.io/stomp-specification-1.1.html">STOMP 1.1</a> <br/></li>
+  <li><a href="http://stomp.github.io/stomp-specification-1.0.html">STOMP 1.0</a></li>
   </ul>
 </div>
 <div class="left">
-  <h1 id = "Mailing_List">Mailing List</h1>
+  <h1 id = "Mailing_List">邮件列表</h1>
   <div></div>
 </div>
 <div class="right">
-  <p>If you are a STOMP implementer, we would love you to join the specification discussions.</p>
+  <p>如果你是 STOMP 实现者，我们期待你加入规范讨论。</p>
 
-  <p>The main mailing list is hosted at the <a href="http://groups.google.com/group/stomp-spec">stomp-spec google group</a>.</p>
+  <p>主要邮件列表托管在 <a href="http://groups.google.com/group/stomp-spec">stomp-spec google 组</a>。</p>
 
   <ul>
   <li><a href="http://groups.google.com/group/stomp-spec">http://groups.google.com/group/stomp-spec</a></li>
   </ul>
 
-  <p>Be aware that to reduce spam your first post will be moderated through; so please be patient. (Unfortunately we get a lot of spam)</p>
+  <p>请注意，为减少垃圾邮件，第一封邮件将被审核；所以请耐心等待（不幸的是，我们收到了大量垃圾邮件）</p>
 </div>
 
         <div></div>
