@@ -1,44 +1,44 @@
-## Overview
+## 概述
 
-STOMP is the Simple (or Streaming) Text Orientated Messaging Protocol.
+STOMP 是一个简单（流式）面向文本的消息传输协议。
 
-STOMP provides an interoperable wire format so that STOMP clients can
-communicate with any STOMP message broker to provide easy and widespread
-messaging interoperability among many languages, platforms and brokers.
+STOMP 提供了一种可互操作的连接格式，
+这样 STOMP 客户端就可以与任何 STOMP 消息代理通信，
+从而在多种语言、平台与代理之间提供简单而广泛的消息互操作性。
 
-## Specification
+## 详述
 
-This git repository hosts the released and in progress STOMP specifications.
-The latest released specification is located at:
+源仓库 [stomp/stomp-spec](https://github.com/stomp/stomp-spec) 托管已发布的与正在进行的 STOMP 规范。
+最新发布的规范位于：
 
-[src/stomp-specification-1.2.md](src/stomp-specification-1.2.md)
+<https://github.com/stomp/stomp-spec/src/stomp-specification-1.2.md>
 
-## Website Generation
+## 网站生成
 
-This git repository generates the
-[STOMP specification static website](http://stomp.github.com/)
-using either [Maven](http://maven.apache.org/download.html) or the
-[SBT](http://code.google.com/p/simple-build-tool/wiki/Setup) build tool.
+该 Git 存储库使用 [Maven](http://maven.apache.org/download.html)
+或 [SBT](http://code.google.com/p/simple-build-tool/wiki/Setup)
+构建工具生成
+[STOMP 协议规范中文站](http://stomp.yueplus.ink/)
 
-### Building with Maven
+### 使用 Maven 构建
 
-Once you have [Maven](http://maven.apache.org/download.html) installed,
-you can generate the website by running:
+当安装好了 [Maven](http://maven.apache.org/download.html)，
+就可以通过运行以下指令生成网站：
 
     mvn package
 
-It will generate the static site to the `target/sitegen` directory, just
-point your web browser at `target/sitegen/index.html`
+将静态站点生成到 `target/sitegen` 目录，
+只需使用 Web 浏览器访问 `target/sitegen/index.html`
 
-### Building with SBT
+### 使用 SBT 构建
 
-Once you have
-[SBT](http://code.google.com/p/simple-build-tool/wiki/Setup) installed,
-you can generate the website by running:
+当安装好了
+[SBT](http://code.google.com/p/simple-build-tool/wiki/Setup)，
+就可以通过运行以下指令生成网站：
 
     sbt update
     sbt package
 
-It will generate the static site to the `target/scala_2.8.1/sitegen` directory, just
-point your web browser at `target/scala_2.8.1/sitegen/index.html`
+将静态站点生成到 `target/scala_2.8.1/sitegen` 目录，
+只需使用 Web 浏览器访问 `target/scala_2.8.1/sitegen/index.html`
 
