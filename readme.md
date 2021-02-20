@@ -22,7 +22,7 @@ STOMP 提供了一种可互操作的连接格式，
 
 ### 使用 Maven 构建
 
-当安装好了 [Maven](http://maven.apache.org/download.html)，
+当安装好了 [Maven](http://maven.apache.org/download.html) ，
 就可以通过运行以下指令生成网站：
 
     mvn package
@@ -33,7 +33,7 @@ STOMP 提供了一种可互操作的连接格式，
 ### 使用 SBT 构建
 
 当安装好了
-[SBT](http://code.google.com/p/simple-build-tool/wiki/Setup)，
+[SBT](https://www.scala-sbt.org/1.x/docs/) ，
 就可以通过运行以下指令生成网站：
 
     sbt update
