@@ -71,13 +71,13 @@
     <li><a href="#Protocol_Negotiation">协议版本协商</a></li>
     <li><a href="#Heart-beating">心跳</a></li>
   </ul></li>
-  <li><a href="#Client_Frames">Client Frames</a></li>
+  <li><a href="#Client_Frames">客户端帧</a></li>
   <li><ul style="list-style:none;">
     <li><a href="#SEND">SEND</a></li>
     <li><a href="#SUBSCRIBE">SUBSCRIBE</a></li>
     <li><ul style="list-style:none;">
-      <li><a href="#SUBSCRIBE_id_Header">SUBSCRIBE id Header</a></li>
-      <li><a href="#SUBSCRIBE_ack_Header">SUBSCRIBE ack Header</a></li>
+      <li><a href="#SUBSCRIBE_id_Header">SUBSCRIBE <code>id</code> 标头</a></li>
+      <li><a href="#SUBSCRIBE_ack_Header">SUBSCRIBE <code>ack</code> 标头</a></li>
     </ul></li>
     <li><a href="#UNSUBSCRIBE">UNSUBSCRIBE</a></li>
     <li><a href="#ACK">ACK</a></li>
@@ -517,10 +517,10 @@ heart-beat:&lt;sx&gt;,&lt;sy&gt;</code></pre>
 <li><p>由于时间上的不准确性，接收方 <strong>应该</strong> 容忍并考虑误差余量</p></li>
 </ul>
 
-<h2 id = "Client_Frames">Client Frames</h2>
+<h2 id = "Client_Frames">客户端帧</h2>
 
-<p>A client MAY send a frame not in this list, but for such a frame a STOMP 1.2
-server MAY respond with an <code>ERROR</code> frame and then close the connection.</p>
+<p>客户端 <strong>可以</strong> 发送不在此列表中的帧，
+  但是对于这样的帧，STOMP 1.2 服务端可以用 <code>ERROR</code> 帧响应，然后关闭连接。</p>
 
 <ul>
 <li><a href="#SEND"><code>SEND</code></a></li>
@@ -536,9 +536,9 @@ server MAY respond with an <code>ERROR</code> frame and then close the connectio
 
 <h3 id = "SEND">SEND</h3>
 
-<p>The <code>SEND</code> frame sends a message to a destination in the messaging system. It
-has one REQUIRED header, <code>destination</code>, which indicates where to send the
-message. The body of the <code>SEND</code> frame is the message to be sent. For example:</p>
+<p><code>SEND</code> 帧将消息发送到消息系统中的目的地。
+  它 <strong>必须</strong> 具有一个 <code>destination</code> 标头，即目的地，指示将消息发送到的位置。
+  <code>SEND</code> 帧的正文是要发送的消息。示例：</p>
 
 <pre><code>SEND
 destination:/queue/a
@@ -547,41 +547,34 @@ content-type:text/plain
 hello queue a
 ^@</code></pre>
 
-<p>This sends a message to a destination named <code>/queue/a</code>. Note that STOMP treats
-this destination as an opaque string and no delivery semantics are assumed by
-the name of a destination. You should consult your STOMP server's
-documentation to find out how to construct a destination name which gives you
-the delivery semantics that your application needs.</p>
+<p>这会将消息发送到名为 <code>/queue/a</code> 的目的地。
+  请注意，STOMP 将此目的地视为不透明字符串，并且目的地的名称没有假定传递语义。
+  应该查阅 STOMP 服务端的文档，以了解如何构造目标名称，该目标名称提供了应用程序所需的交付语义。</p>
 
-<p>The reliability semantics of the message are also server specific and will
-depend on the destination value being used and the other message headers
-such as the <code>transaction</code> header or other server specific message headers.</p>
+<p>消息的可靠性语义也是服务端特定的，并且将取决于所使用的目标值与其他消息标头，
+  例如 <code>transaction</code> 标头或其他服务端特定的消息标头。</p>
 
-<p><code>SEND</code> supports a <code>transaction</code> header which allows for transactional sends.</p>
+<p><code>SEND</code> 支持允许事务发送的 <code>transaction</code> 标头。</p>
 
-<p><code>SEND</code> frames SHOULD include a
-<a href="#Header&#95;content-length"><code>content-length</code></a> header and a
-<a href="#Header&#95;content-type"><code>content-type</code></a> header if a body is present.</p>
+<p>如果存在正文，那么 <code>SEND</code> 帧 <strong>应该</strong> 包含
+  <a href="#Header&#95;content-length"><code>content-length</code></a> 标头与
+  <a href="#Header&#95;content-type"><code>content-type</code></a>标头。</p>
 
-<p>An application MAY add any arbitrary user defined headers to the <code>SEND</code> frame.
-User defined headers are typically used to allow consumers to filter
-messages based on the application defined headers using a selector
-on a <code>SUBSCRIBE</code> frame. The user defined headers MUST be passed through
-in the <code>MESSAGE</code> frame.</p>
+<p>应用程序 <strong>可以</strong> 将任何用户定义的标头添加到 <code>SEND</code> 帧中。
+  用户定义的标头通常用于允许消费者使用 <code>SUBSCRIBE</code> 帧上的选择器基于应用程序定义的标头过滤消息。
+  用户定义的报头必须在 <code>MESSAGE</code> 帧中传递。</p>
 
-<p>If the server cannot successfully process the <code>SEND</code> frame for any reason,
-the server MUST send the client an <code>ERROR</code> frame and then close the connection.</p>
+<p>如果服务端由于某种原因不能成功处理 <code>SEND</code> 帧，
+  那么服务器必须向客户端发送一个 <code>ERROR</code> 帧，然后关闭连接。</p>
 
 <h3 id = "SUBSCRIBE">SUBSCRIBE</h3>
 
-<p>The <code>SUBSCRIBE</code> frame is used to register to listen to a given destination.
-Like the <code>SEND</code> frame, the <code>SUBSCRIBE</code> frame requires a <code>destination</code> header
-indicating the destination to which the client wants to subscribe. Any
-messages received on the subscribed destination will henceforth be delivered
-as <code>MESSAGE</code> frames from the server to the client. The <code>ack</code> header controls
-the message acknowledgment mode.</p>
+<p><code>SUBSCRIBE</code> 帧用于注册以侦听给定的目的地。
+  像 <code>SEND</code> 帧一样，<code>SUBSCRIBE</code> 帧也需要一个 <code>destination</code> 标头，该头指示客户端要订阅的目标。
+  此后，在订阅目标上收到的任何消息将作为 <code>MESSAGE</code> 帧从服务器传递到客户端。
+  <code>ack</code> 头控制消息确认模式。</p>
 
-<p>Example:</p>
+<p>示例：</p>
 
 <pre><code>SUBSCRIBE
 id:0
@@ -590,50 +583,38 @@ ack:client
 
 ^@</code></pre>
 
-<p>If the server cannot successfully create the subscription,
-the server MUST send the client an <code>ERROR</code> frame and then close the connection.</p>
+<p>如果服务器无法成功创建订阅，则服务器 <strong>必须</strong> 向客户端发送一个 <code>ERROR</code> 帧，然后关闭连接。</p>
 
-<p>STOMP servers MAY support additional server specific headers to customize the
-delivery semantics of the subscription. Consult your server's documentation for
-details.</p>
+<p>STOMP 服务器 <strong>可以</strong> 支持附加的服务端特定报头，以自定义订阅的传递语义。
+  详见服务端文档。</p>
 
-<h4 id = "SUBSCRIBE_id_Header">SUBSCRIBE id Header</h4>
+<h4 id = "SUBSCRIBE_id_Header">SUBSCRIBE <code>id</code> 标头</h4>
 
-<p>Since a single connection can have multiple open subscriptions with a
-server, an <code>id</code> header MUST be included in the frame to uniquely identify
-the subscription. The <code>id</code> header allows the client and server to relate
-subsequent <code>MESSAGE</code> or <code>UNSUBSCRIBE</code> frames to the original subscription.</p>
+<p>由于单个连接可以在服务端开启的多个订阅，因此 <code>id</code> 标头 <strong>必须</strong> 包含在帧中以唯一标识订阅。
+  <code>id</code> 标头允许客户端与服务端将后续的 <code>MESSAGE</code> 或 <code>UNSUBSCRIBE</code> 帧与原始订阅相关联。</p>
 
-<p>Within the same connection, different subscriptions MUST use different
-subscription identifiers.</p>
+<p>在同一连接中，不同的订阅 <strong>必须</strong> 使用不同的订阅标识符。</p>
 
-<h4 id = "SUBSCRIBE_ack_Header">SUBSCRIBE ack Header</h4>
+<h4 id = "SUBSCRIBE_ack_Header">SUBSCRIBE <code>ack</code> 标头</h4>
 
-<p>The valid values for the <code>ack</code> header are <code>auto</code>, <code>client</code>, or
-<code>client-individual</code>. If the header is not set, it defaults to <code>auto</code>.</p>
+<p><code>ack</code> 标头的有效值为：<code>auto</code>、 <code>client</code>、<code>client-individual</code>。
+  如果未设置标题，则默认为 <code>auto</code>。</p>
 
-<p>When the <code>ack</code> mode is <code>auto</code>, then the client does not need to send the
-server <code>ACK</code> frames for the messages it receives. The server will assume the
-client has received the message as soon as it sends it to the client.
-This acknowledgment mode can cause messages being transmitted to the client
-to get dropped.</p>
+<p>当 <code>ack</code> 模式为 <code>auto</code> 时，客户端不需要为收到的消息向服务端发送 <code>ACK</code> 帧。
+  服务端将假定消息发出后客户端一定能收到。
+  这种确认模式可能导致发送到客户端的消息丢失。</p>
 
-<p>When the <code>ack</code> mode is <code>client</code>, then the client MUST send the server
-<code>ACK</code> frames for the messages it processes. If the connection fails before a
-client sends an <code>ACK</code> frame for the message the server will assume the message
-has not been processed and MAY redeliver the message to another client. The
-<code>ACK</code> frames sent by the client will be treated as a cumulative acknowledgment.
-This means the acknowledgment operates on the message specified in the <code>ACK</code>
-frame and all messages sent to the subscription before the <code>ACK</code>'ed message.</p>
+<p>当 <code>ack</code> 模式为 <code>client</code> 时，客户端 <strong>必须</strong> 为处理的消息向服务端发送 <code>ACK</code> 帧。
+  如果在客户端发送该消息的 <code>ACK</code> 帧之前连接失败，那么服务器将假定该消息尚未处理，
+  <strong>可以</strong> 将消息重新传递给另一个客户端。
+  客户端发送的 <code>ACK</code> 帧将被视为累积确认。
+  这意味着确认将对 <code>ACK</code> 帧中指定的消息以及在 <code>ACK</code> 消息之前发送给订阅的所有消息进行操作。</p>
 
-<p>In case the client did not process some messages, it SHOULD send <code>NACK</code> frames
-to tell the server it did not consume these messages.</p>
+<p>如果客户端没有处理某些消息，它 <strong>应该</strong> 发送 <code>NACK</code> 帧来告诉服务端没有消费这些消息。</p>
 
-<p>When the <code>ack</code> mode is <code>client-individual</code>, the acknowledgment operates just
-like the <code>client</code> acknowledgment mode except that the <code>ACK</code> or <code>NACK</code> frames
-sent by the client are not cumulative. This means that an <code>ACK</code> or <code>NACK</code>
-frame for a subsequent message MUST NOT cause a previous message to get
-acknowledged.</p>
+<p>当 <code>ack</code> 模式为 <code>client-individual</code> 时，
+  确认的运行方式与 <code>client</code> 确认模式相同，只不过客户端发送的 <code>ACK</code> 或 <code>NACK</code> 帧不是累积的。
+  这意味着后继消息的 <code>ACK</code> 或 <code>NACK</code> 帧 <strong>绝不</strong> 能使前一条消息得到确认。</p>
 
 <h3 id = "UNSUBSCRIBE">UNSUBSCRIBE</h3>
 
