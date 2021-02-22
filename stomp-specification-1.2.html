@@ -56,20 +56,20 @@
     <li><a href="#Body">正文</a></li>
     <li><a href="#Standard_Headers">标准标头</a></li>
     <li><ul style="list-style:none;">
-      <li><a href="#Header_content-length">标头 <code>content-length</code></a></li>
-      <li><a href="#Header_content-type">Header content-type</a></li>
-      <li><a href="#Header_receipt">Header receipt</a></li>
+      <li><a href="#Header_content-length"><code>content-length</code> 标头</a></li>
+      <li><a href="#Header_content-type"><code>content-type</code> 标头</a></li>
+      <li><a href="#Header_receipt"><code>receipt</code> 标头</a></li>
     </ul></li>
-    <li><a href="#Repeated_Header_Entries">Repeated Header Entries</a></li>
-    <li><a href="#Size_Limits">Size Limits</a></li>
-    <li><a href="#Connection_Lingering">Connection Lingering</a></li>
+    <li><a href="#Repeated_Header_Entries">重复的标头项</a></li>
+    <li><a href="#Size_Limits">大小限制</a></li>
+    <li><a href="#Connection_Lingering">链接徘徊</a></li>
   </ul></li>
-  <li><a href="#Connecting">Connecting</a></li>
+  <li><a href="#Connecting">连接中</a></li>
   <li><ul style="list-style:none;">
-    <li><a href="#CONNECT_or_STOMP_Frame">CONNECT or STOMP Frame</a></li>
-    <li><a href="#CONNECTED_Frame">CONNECTED Frame</a></li>
-    <li><a href="#Protocol_Negotiation">Protocol Negotiation</a></li>
-    <li><a href="#Heart-beating">Heart-beating</a></li>
+    <li><a href="#CONNECT_or_STOMP_Frame"><code>CONNECT</code> 或 <code>STOMP</code> 帧</a></li>
+    <li><a href="#CONNECTED_Frame"><code>CONNECTED</code> 帧</a></li>
+    <li><a href="#Protocol_Negotiation">协议版本协商</a></li>
+    <li><a href="#Heart-beating">心跳</a></li>
   </ul></li>
   <li><a href="#Client_Frames">Client Frames</a></li>
   <li><ul style="list-style:none;">
@@ -138,22 +138,22 @@
 <h3 id = "Protocol_Overview">协议总览</h3>
 
 <p>STOMP 是基于帧的协议，其帧以 HTTP 为模型。
-  框架由命令，一组可选的标头与可选的主体组成。
+  框架由命令，一组可选的标头与可选的正文组成。
   STOMP 基于文本，但也允许传输二进制消息。
   STOMP 的默认编码为 UTF-8，但是支持消息体的替代编码规范。</p>
 
-<p>STOMP 服务器被建模为一组可以向其发送消息的目标。
-  STOMP 协议将目标视为不透明字符串，并且其语法是服务器实现特定的。
+<p>STOMP 服务端被建模为一组可以向其发送消息的目标。
+  STOMP 协议将目标视为不透明字符串，并且其语法是服务端实现特定的。
   此外，STOMP 并未定义目的地的传递语义。
-  目的地的传递或“消息交换”的语义可能因服务器而异，甚至因目的地而异。
-  这使服务器可以利用 STOMP 支持的语义进行创新。</p>
+  目的地的传递或“消息交换”的语义可能因服务端而异，甚至因目的地而异。
+  这使服务端可以利用 STOMP 支持的语义进行创新。</p>
 
 <p>STOMP 客户端是一种用户代理，可以以两种（可能同时）模式运行：</p>
 
 <ul>
-<li><p>作为生产者，通过 <code>SEND</code> 帧将消息发送到服务器上的目标</p></li>
+<li><p>作为生产者，通过 <code>SEND</code> 帧将消息发送到服务端上的目标</p></li>
 <li><p>作为消费者，发送给定目标的 <code>SUBSCRIBE</code> 帧，
-  并以 <code>MESSAGE</code> 帧的形式从服务器接收消息。</p></li>
+  并以 <code>MESSAGE</code> 帧的形式从服务端接收消息。</p></li>
 </ul>
 
 <h3 id = "Changes_in_the_Protocol">协议的变化</h3>
@@ -172,7 +172,7 @@
 <li><p>重复帧标头项</p></li>
 <li><p>使用 <code>content-length</code> 与 <code>content-type</code> 标头</p></li>
 <li><p>服务端对 <code>STOMP</code> 帧的必要支持</p></li>
-<li><p>连接延迟</p></li>
+<li><p>连接徘徊</p></li>
 <li><p>订阅与事务标识符的作用域与唯一性</p></li>
 <li><p><code>RECEIPT</code> 帧相对于上一帧的含义</p></li>
 </ul>
@@ -181,7 +181,7 @@
 
 <p>驱动 STOMP 设计的主要理念是简单性与互操作性。</p>
 
-<p>STOMP 被设计为一种轻量级协议，易于在客户端和服务器端以多种语言实现。
+<p>STOMP 被设计为一种轻量级协议，易于在客户端和服务端以多种语言实现。
   特别是，这意味着对服务端的体系结构没有太多限制，
   并且诸如目标命名与可靠性语义之类的许多功能是特定于实现的。</p>
 
@@ -275,7 +275,7 @@ Body^@</code></pre>
 
 <p>对于大多数帧，<strong>可以</strong> 使用某些标头，并具有特殊含义。</p>
 
-<h4 id = "Header_content-length">标头 <code>content-length</code></h4>
+<h4 id = "Header_content-length"><code>content-length</code> 标头</h4>
 
 <p>所有帧都可以包含一个 <code>content-length</code> 的标头。
   此标头是消息正文长度的 octet 数量。
@@ -285,33 +285,27 @@ Body^@</code></pre>
 <p>如果存在帧正文，那么 <code>SEND</code>、<code>MESSAGE</code> 与 <code>ERROR</code> 帧应包含 <code>content-length</code> 标头，以简化帧解析。
   如果帧正文包含 NULL octet，那么该帧必须包含一个 <code>content-length</code> 标头。</p>
 
-<h4 id = "Header_content-type">Header content-type</h4>
+<h4 id = "Header_content-type"><code>content-type</code> 标头</h4>
 
-<p>If a frame body is present, the <code>SEND</code>, <code>MESSAGE</code> and <code>ERROR</code> frames SHOULD
-include a <code>content-type</code> header to help the receiver of the frame interpret
-its body. If the <code>content-type</code> header is set, its value MUST be a MIME type
-which describes the format of the body. Otherwise, the receiver SHOULD
-consider the body to be a binary blob.</p>
+<p>如果存在帧正文，那么 <code>SEND</code>、<code>MESSAGE</code> 与 <code>ERROR</code> 帧
+  <strong>应该</strong> 包含 <code>content-type</code> 标头，以帮助帧的接收者解析正文。
+  如果设置了 <code>content-type</code> 标头，那么其值 <strong>必须</strong> 是描述正文格式的 MIME 类型。
+  否则，接收者 <strong>应该</strong> 将正文视为二进制对象。</p>
 
-<p>The implied text encoding for MIME types starting with <code>text/</code> is UTF-8. If
-you are using a text based MIME type with a different encoding then you
-SHOULD append <code>;charset=&lt;encoding&gt;</code> to the MIME type. For example,
-<code>text/html;charset=utf-16</code> SHOULD be used if you're sending an HTML body in
-UTF-16 encoding. The <code>;charset=&lt;encoding&gt;</code> SHOULD also get appended to any
-non <code>text/</code> MIME types which can be interpreted as text. A good example of
-this would be a UTF-8 encoded XML. Its <code>content-type</code> SHOULD get set to
-<code>application/xml;charset=utf-8</code></p>
+<p>以 <code>text/</code> 开头的 MIME 类型的默认文本编码为 UTF-8。
+  如果使用的是带有不同编码的基于文本的 MIME 类型，那么 <strong>应该</strong> 在 MIME 类型后附加 <code>;charset=&lt;encoding&gt;</code>。
+  例如，如果要以 UTF-16 编码发送 HTML 正文，那么 <strong>应该</strong> 使用 <code>text/html;charset=utf-16</code>。
+  <code>;charset=&lt;encoding&gt;</code> 也 <strong>应该</strong> 附加到任何可以解释为文本的非 <code>text/</code> MIME 类型。
+  一个很好的例子是以 UTF-8 编码的 XML。
+  其内容类型 <strong>应该</strong> 设置为 <code>application/xml;charset=utf-8</code>。</p>
 
-<p>All STOMP clients and servers MUST support UTF-8 encoding and decoding. Therefore,
-for maximum interoperability in a heterogeneous computing environment, it is
-RECOMMENDED that text based content be encoded with UTF-8.</p>
+<p>所有 STOMP 客户端与服务端都 <strong>必须</strong> 支持 UTF-8 编码与解码。
+  因此，为了在异构计算环境中实现最大的互操作性，<strong>建议</strong> 使用 UTF-8 对基于文本的内容进行编码。</p>
 
-<h4 id = "Header_receipt">Header receipt</h4>
+<h4 id = "Header_receipt"><code>receipt</code> 标头</h4>
 
-<p>Any client frame other than <code>CONNECT</code> MAY specify a <code>receipt</code> header with an
-arbitrary value. This will cause the server to acknowledge the processing of
-the client frame with a <code>RECEIPT</code> frame (see the <a href="#RECEIPT">RECEIPT</a> frame
-for more details).</p>
+<p>除 <code>CONNECT</code> 以外的任何客户端帧都 <strong>可以</strong> 用任意值指定一个 <code>receipt</code> 标头。
+  这将导致服务端使用 <code>RECEIPT</code> 帧确认对客户端帧的处理（有关更多详细信息，请参见 <a href="#RECEIPT">RECEIPT</a> 帧）。</p>
 
 <pre><code>SEND
 destination:/queue/a
@@ -319,20 +313,16 @@ receipt:message-12345
 
 hello queue a^@</code></pre>
 
-<h3 id = "Repeated_Header_Entries">Repeated Header Entries</h3>
+<h3 id = "Repeated_Header_Entries">重复的标头项</h3>
 
-<p>Since messaging systems can be organized in store and forward topologies,
-similar to SMTP, a message may traverse several messaging servers before
-reaching a consumer. A STOMP server MAY 'update' header values by either
-prepending headers to the message or modifying a header in-place in the
-message.</p>
+<p>由于消息传递系统能按照类似于 SMTP 的存储与转发拓扑进行组织，
+  因此消息在到达使用者之前 <strong>可以</strong> 遍历多个消息传递服务端。
+  STOMP 服务端 <strong>可以</strong> 通过在消息前添加标头或在消息中就地修改标头来“更新”标头值。</p>
 
-<p>If a client or a server receives repeated frame header entries, only the
-first header entry SHOULD be used as the value of header entry. Subsequent
-values are only used to maintain a history of state changes of the header
-and MAY be ignored.</p>
+<p>如果客户端或服务端收到重复的帧标头项，只有第一个标头项的值 <strong>应该</strong> 被用作标头。
+  后续值仅用于维护标头状态更改的历史记录，<strong>可以</strong> 忽略。</p>
 
-<p>For example, if the client receives:</p>
+<p>例如，如果客户端收到：</p>
 
 <pre><code>MESSAGE
 foo:World
@@ -340,38 +330,32 @@ foo:Hello
 
 ^@</code></pre>
 
-<p>The value of the <code>foo</code> header is just <code>World</code>.</p>
+<p><code>foo</code> 标头的值就是 <code>World</code>。</p>
 
-<h3 id = "Size_Limits">Size Limits</h3>
+<h3 id = "Size_Limits">大小限制</h3>
 
-<p>To prevent malicious clients from exploiting memory allocation in a
-server, servers MAY place maximum limits on:</p>
+<p>为了防止恶意客户端利用服务端中的内存分配，服务端 <strong>可以</strong> 在以下方面设置最大限制：</p>
 
 <ul>
-<li>the number of frame headers allowed in a single frame</li>
-<li>the maximum length of header lines</li>
-<li>the maximum size of a frame body</li>
+<li>单个帧中允许的帧标头数量</li>
+<li>标头的最大长度</li>
+<li>帧正文的最大长度</li>
 </ul>
 
-<p>If these limits are exceeded the server SHOULD send the client an <code>ERROR</code>
-frame and then close the connection.</p>
+<p>如果超出了这些限制，服务端 <strong>应该</strong> 向客户端发送一个 <code>ERROR</code> 帧，然后关闭连接。</p>
 
-<h3 id = "Connection_Lingering">Connection Lingering</h3>
+<h3 id = "Connection_Lingering">链接徘徊</h3>
 
-<p>STOMP servers must be able to support clients which rapidly connect and
-disconnect.</p>
+<p>STOMP 服务端必须能够支持快速连接与断开连接的客户端。</p>
 
-<p>This implies a server will likely only allow closed connections to linger
-for short time before the connection is reset.</p>
+<p>这意味着服务端可能仅允许关闭的连接在重置连接之前短时间徘徊。</p>
 
-<p>As a consequence, a client may not receive the last frame sent by the server
-(for instance an <code>ERROR</code> frame or the <code>RECEIPT</code> frame in reply to a
-<code>DISCONNECT</code> frame) before the socket is reset.</p>
+<p>因此，在套接字重置之前，客户端可能未收到服务端发送的最后一个帧
+  （例如，<code>ERROR</code> 帧或 <code>RECEIPT</code> 帧以响应 <code>DISCONNECT</code> 帧）。</p>
 
-<h2 id = "Connecting">Connecting</h2>
+<h2 id = "Connecting">连接中</h2>
 
-<p>A STOMP client initiates the stream or TCP connection to the server by sending
-the <code>CONNECT</code> frame:</p>
+<p>STOMP 客户端通过发送 <code>CONNECT</code> 帧来向服务端请求流连接或 TCP 连接：</p>
 
 <pre><code>CONNECT
 accept-version:1.2
@@ -379,90 +363,78 @@ host:stomp.github.org
 
 ^@</code></pre>
 
-<p>If the server accepts the connection attempt it will respond with a
-<code>CONNECTED</code> frame:</p>
+<p>如果服务端接受连接请求，将会响应 <code>CONNECTED</code> 帧：</p>
 
 <pre><code>CONNECTED
 version:1.2
 
 ^@</code></pre>
 
-<p>The server can reject any connection attempt. The server SHOULD respond back
-with an <code>ERROR</code> frame explaining why the connection was rejected and then close
-the connection.</p>
+<p>服务端可以拒绝任何连接请求。
+  服务端 <strong>应该</strong> 以一个 <code>ERROR</code> 帧回应，说明连接请求被拒绝的原因，然后关闭连接。</p>
 
-<h3 id = "CONNECT_or_STOMP_Frame">CONNECT or STOMP Frame</h3>
+<h3 id = "CONNECT_or_STOMP_Frame"><code>CONNECT</code> 或 <code>STOMP</code> 帧</h3>
 
-<p>STOMP servers MUST handle a <code>STOMP</code> frame in the same manner as a <code>CONNECT</code>
-frame. STOMP 1.2 clients SHOULD continue to use the <code>CONNECT</code> command to
-remain backward compatible with STOMP 1.0 servers.</p>
+<p>STOMP 服务端 <strong>必须</strong> 以与 <code>CONNECT</code> 帧相同的方式处理 <code>STOMP</code> 帧。
+  STOMP 1.2 客户端 <strong>应该</strong> 继续使用 <code>CONNECT</code> 命令以保持与 STOMP 1.0 服务端的向后兼容性。</p>
 
-<p>Clients that use the <code>STOMP</code> frame instead of the <code>CONNECT</code> frame will only
-be able to connect to STOMP 1.2 servers (as well as some STOMP 1.1 servers)
-but the advantage is that a protocol sniffer/discriminator will be able to
-differentiate the STOMP connection from an HTTP connection.</p>
+<p>使用 <code>STOMP</code> 帧而不是 <code>CONNECT</code> 帧的客户端只能连接到 STOMP 1.2 服务端（以及某些 STOMP 1.1 服务端），
+  但是优点是协议嗅探器/鉴别器将能够区分 STOMP 连接与 HTTP连接。</p>
 
-<p>STOMP 1.2 clients MUST set the following headers:</p>
+<p>STOMP 1.2 客户端 <strong>必须</strong> 设置以下标头：</p>
 
 <ul>
-<li><p><code>accept-version</code> : The versions of the STOMP protocol the client supports.
-See <a href="#Protocol&#95;Negotiation">Protocol Negotiation</a> for more details.</p></li>
-<li><p><code>host</code> : The name of a virtual host that the client wishes to connect to.
-It is recommended clients set this to the host name that the socket
-was established against, or to any name of their choosing. If this
-header does not match a known virtual host, servers supporting virtual
-hosting MAY select a default virtual host or reject the connection.</p></li>
+<li><p><code>accept-version</code>：客户端支持的 STOMP 协议版本。
+  详见：<a href="#Protocol&#95;Negotiation">协议版本协商</a></p></li>
+<li><p><code>host</code>：
+  客户端希望连接的虚拟主机的名称。建议客户端将其设置为建立套接字所依据的主机名，或设置为其选择的任何名称。
+  如果该标头与已知的虚拟主机不匹配，那么支持虚拟主机的服务端 <strong>可以</strong> 选择一个默认的虚拟主机或拒绝连接。</p></li>
 </ul>
 
-<p>STOMP 1.2 clients MAY set the following headers:</p>
+<p>STOMP 1.2 客户端 <strong>可以</strong> 设置以下标头：</p>
 
 <ul>
-<li><p><code>login</code> : The user identifier used to authenticate against a secured STOMP server.</p></li>
-<li><p><code>passcode</code> : The password used to authenticate against a secured STOMP
-server.</p></li>
-<li><p><code>heart-beat</code> : The <a href="#Heart-beating">Heart-beating</a> settings.</p></li>
+<li><p><code>login</code>：用于对受保护的 STOMP 服务端进行身份验证的用户标识符。</p></li>
+<li><p><code>passcode</code>：用于对受保护的 STOMP 服务端进行身份验证的密码。</p></li>
+<li><p><code>heart-beat</code>：设置 <a href="#Heart-beating">心跳</a>。</p></li>
 </ul>
 
-<h3 id = "CONNECTED_Frame">CONNECTED Frame</h3>
+<h3 id = "CONNECTED_Frame"><code>CONNECTED</code> 帧</h3>
 
-<p>STOMP 1.2 servers MUST set the following headers:</p>
+<p>STOMP 1.2 服务端 <strong>必须</strong> 设置以下标头：</p>
 
 <ul>
-<li><code>version</code> : The version of the STOMP protocol the session will be using.
-See <a href="#Protocol&#95;Negotiation">Protocol Negotiation</a> for more details.</li>
+<li><code>version</code>：会话将使用的 STOMP 协议的版本。
+  详见：<a href="#Protocol&#95;Negotiation">协议版本协商</a></li>
 </ul>
 
-<p>STOMP 1.2 servers MAY set the following headers:</p>
+<p>STOMP 1.2 服务端 <strong>可以</strong> 设置以下标头：</p>
 
 <ul>
-<li><p><code>heart-beat</code> : The <a href="#Heart-beating">Heart-beating</a> settings.</p></li>
-<li><p><code>session</code> : A session identifier that uniquely identifies the session.</p></li>
-<li><p><code>server</code> : A field that contains information about the STOMP server.
-The field MUST contain a server-name field and MAY be followed by optional 
-comment fields delimited by a space character.</p>
+<li><p><code>heart-beat</code>：设置 <a href="#Heart-beating">心跳</a>。</p></li>
+<li><p><code>session</code>：唯一标识会话的会话标识符。</p></li>
+<li><p><code>server</code>：包含有关 STOMP 服务端信息的字段。
+  该字段 <strong>必须</strong> 包含一个服务器名称字段，
+  并且 <strong>可以</strong> 在其后跟可选的注释字段，并用空格分隔。</p>
 
-<p>The server-name field consists of a name token followed by an optional version
-number token.</p>
+<p>服务器名称字段由名称令牌与可选的版本号令牌组成。</p>
 
 <p><code>server      = name ["/" version] *(comment)</code></p>
 
-<p>Example:</p>
+<p>示例：</p>
 
 <p><code>server:Apache/1.3.9</code></p></li>
 </ul>
 
-<h3 id = "Protocol_Negotiation">Protocol Negotiation</h3>
+<h3 id = "Protocol_Negotiation">协议版本协商</h3>
 
-<p>From STOMP 1.1 and onwards, the <code>CONNECT</code> frame MUST include the
-<code>accept-version</code> header. It SHOULD be set to a comma separated list of
-incrementing STOMP protocol versions that the client supports. If the
-<code>accept-version</code> header is missing, it means that the client only supports
-version 1.0 of the protocol.</p>
+<p>从 STOMP 1.1 开始，<code>CONNECT</code> 帧 <strong>必须</strong> 包含 <code>accept-version</code> 标头。
+  <strong>应该</strong> 将其设置为客户端支持的递增 STOMP 协议版本的逗号分隔列表。
+  如果缺少 <code>accept-version</code> 标头，那么表示客户端仅支持 STOMP 1.0。</p>
 
-<p>The protocol that will be used for the rest of the session will be the
-highest protocol version that both the client and server have in common.</p>
+<p>其余会话将使用的协议将是客户端与服务端共同拥有的最高协议版本。</p>
 
-<p>For example, if the client sends:</p>
+<p>例如，如果客户端发送：</p>
 
 <pre><code>CONNECT
 accept-version:1.0,1.1,2.0
@@ -470,17 +442,15 @@ host:stomp.github.org
 
 ^@</code></pre>
 
-<p>The server will respond back with the highest version of the protocol that
-it has in common with the client:</p>
+<p>服务端将以与客户端相同的最高版本的协议进行响应：</p>
 
 <pre><code>CONNECTED
 version:1.1
 
 ^@</code></pre>
 
-<p>If the client and server do not share any common protocol versions, then the
-server MUST respond with an <code>ERROR</code> frame similar to the following and then
-close the connection:</p>
+<p>如果客户端与服务端不共享任何通用协议版本，
+  那么服务器 <strong>必须</strong> 以类似于以下内容的 <code>ERROR</code> 帧响应，然后关闭连接：</p>
 
 <pre><code>ERROR
 version:1.2,2.1
@@ -488,46 +458,37 @@ content-type:text/plain
 
 Supported protocol versions are 1.2 2.1^@</code></pre>
 
-<h3 id = "Heart-beating">Heart-beating</h3>
+<h3 id = "Heart-beating">心跳</h3>
 
-<p>Heart-beating can optionally be used to test the healthiness of the
-underlying TCP connection and to make sure that the remote end is alive and
-kicking.</p>
+<p>心跳可以选择性地用于测试底层 TCP 连接的健康状况，并确保远端处于活动状态并正常运行。</p>
 
-<p>In order to enable heart-beating, each party has to declare what it can do
-and what it would like the other party to do. This happens at the very
-beginning of the STOMP session, by adding a <code>heart-beat</code> header to the
-<code>CONNECT</code> and <code>CONNECTED</code> frames.</p>
+<p>为了启用心跳，双方都必须声明自己能做什么，以及声明希望对方做什么。
+  这是在 STOMP 会话开始时发生的，
+  方法是将 <code>heart-beat</code> 标头添加到 <code>CONNECT</code> 与 <code>CONNECTED</code> 帧中。</p>
 
-<p>When used, the <code>heart-beat</code> header MUST contain two positive integers
-separated by a comma.</p>
+<p>使用时，<code>heart-beat</code> 报头 <strong>必须</strong> 包含两个用逗号分隔的正整数。</p>
 
-<p>The first number represents what the sender of the frame can do (outgoing
-heart-beats):</p>
+<p>第一个数字表示帧发送者能做什么（发出心跳）：</p>
 
 <ul>
-<li><p>0 means it cannot send heart-beats</p></li>
-<li><p>otherwise it is the smallest number of milliseconds between heart-beats
-that it can guarantee</p></li>
+<li><p>0 表示无法发送心跳</p></li>
+<li><p>否则，这是可以保证的心跳间隔的最小毫秒数</p></li>
 </ul>
 
-<p>The second number represents what the sender of the frame would like
-to get (incoming heart-beats):</p>
+<p>第二个数字代表帧的发送者希望对方做什么（传入的心跳）：</p>
 
 <ul>
-<li><p>0 means it does not want to receive heart-beats</p></li>
-<li><p>otherwise it is the desired number of milliseconds between heart-beats</p></li>
+<li><p>0 表示不希望接收心跳</p></li>
+<li><p>否则，这是期望的心跳间隔毫秒数</p></li>
 </ul>
 
-<p>The <code>heart-beat</code> header is OPTIONAL. A missing <code>heart-beat</code> header MUST be
-treated the same way as a &ldquo;heart-beat:0,0&rdquo; header, that is: the party cannot
-send and does not want to receive heart-beats.</p>
+<p><code>heart-beat</code> 标头是 <strong>可选</strong> 的。
+  丢失的 <code>heart-beat</code> 标头 <strong>必须</strong> 以“<code>heart-beat:0,0</code>”标头的方式对待，
+  即：对方无法发送并且不想接收心跳。</p>
 
-<p>The <code>heart-beat</code> header provides enough information so that each party can
-find out if heart-beats can be used, in which direction, and with which
-frequency.</p>
+<p><code>heart-beat</code> 标头提供了足够的信息，以便双方可以确定是否可以使用心跳，心跳的方向和频率。</p>
 
-<p>More formally, the initial frames look like:</p>
+<p>更正式地说，初始帧如下所示：</p>
 
 <pre><code>CONNECT
 heart-beat:&lt;cx&gt;,&lt;cy&gt;
@@ -535,28 +496,25 @@ heart-beat:&lt;cx&gt;,&lt;cy&gt;
 CONNECTED
 heart-beat:&lt;sx&gt;,&lt;sy&gt;</code></pre>
 
-<p>For heart-beats from the client to the server:</p>
+<p>对于从客户端到服务端的心跳：</p>
 
 <ul>
-<li><p>if <code>&lt;cx&gt;</code> is 0 (the client cannot send heart-beats) or <code>&lt;sy&gt;</code> is 0 (the
-server does not want to receive heart-beats) then there will be none</p></li>
-<li><p>otherwise, there will be heart-beats every MAX(<code>&lt;cx&gt;</code>,<code>&lt;sy&gt;</code>) milliseconds</p></li>
+<li><p>如果 <code>&lt;cx&gt;</code> 为 0（客户端无法发送心跳）
+  或 <code>&lt;sy&gt;</code> 为 0（服务端不想接收心跳），那么不启用心跳</p></li>
+<li><p>否则，将每 MAX(<code>&lt;cx&gt;</code>,<code>&lt;sy&gt;</code>) 毫秒发送一次心跳</p></li>
 </ul>
 
-<p>In the other direction, <code>&lt;sx&gt;</code> and <code>&lt;cy&gt;</code> are used the same way.</p>
+<p>在服务端上，<code>&lt;sx&gt;</code> 与 <code>&lt;cy&gt;</code> 的使用方式相同。</p>
 
-<p>Regarding the heart-beats themselves, any new data received over the network
-connection is an indication that the remote end is alive. In a given
-direction, if heart-beats are expected every <code>&lt;n&gt;</code> milliseconds:</p>
+<p>关于心跳本身，通过网络连接接收到的任何新数据都表明远端处于活动状态。
+  在给定的方向上，如果期望每 <code>&lt;n&gt;</code> 毫秒发送一次心跳：</p>
 
 <ul>
-<li><p>the sender MUST send new data over the network connection at least every
-<code>&lt;n&gt;</code> milliseconds</p></li>
-<li><p>if the sender has no real STOMP frame to send, it MUST send an end-of-line (EOL)</p></li>
-<li><p>if, inside a time window of at least <code>&lt;n&gt;</code> milliseconds, the receiver did
-not receive any new data, it MAY consider the connection as dead</p></li>
-<li><p>because of timing inaccuracies, the receiver SHOULD be tolerant and take
-into account an error margin</p></li>
+<li><p>发送方 <strong>必须</strong> 至少每 <code>&lt;n&gt;</code> 毫秒通过网络连接发送新数据</p></li>
+<li><p>如果发送方没有实际的 STOMP 帧要发送，那么必须发送行尾（EOL）</p></li>
+<li><p>如果在至少 <code>&lt;n&gt;</code> 毫秒的时间窗口内，接收方没有收到任何新数据，
+  那么 <strong>可以</strong> 认为连接已失效</p></li>
+<li><p>由于时间上的不准确性，接收方 <strong>应该</strong> 容忍并考虑误差余量</p></li>
 </ul>
 
 <h2 id = "Client_Frames">Client Frames</h2>
