@@ -87,15 +87,15 @@
     <li><a href="#ABORT">ABORT</a></li>
     <li><a href="#DISCONNECT">DISCONNECT</a></li>
   </ul></li>
-  <li><a href="#Server_Frames">Server Frames</a></li>
+  <li><a href="#Server_Frames">服务端帧</a></li>
   <li><ul style="list-style:none;">
     <li><a href="#MESSAGE">MESSAGE</a></li>
     <li><a href="#RECEIPT">RECEIPT</a></li>
     <li><a href="#ERROR">ERROR</a></li>
   </ul></li>
-  <li><a href="#Frames_and_Headers">Frames and Headers</a></li>
-  <li><a href="#Augmented_BNF">Augmented BNF</a></li>
-  <li><a href="#License">License</a></li>
+  <li><a href="#Frames_and_Headers">帧与标头</a></li>
+  <li><a href="#Augmented_BNF">增加的 BNF</a></li>
+  <li><a href="#License">许可证</a></li>
 </ul></div></p>
 
 <h2 id = "Abstract">概要</h2>
@@ -110,16 +110,6 @@
 <p>请将反馈发送到
   <a href="mailto:stomp-spec@googlegroups.com">stomp-spec@googlegroups.com</a>
   邮件列表。</p>
-
-<p>在此感谢所有翻译贡献者：</p>
-
-<ul>
-  <li><a target="_blank" href="https://github.com/Yue-plus">Yue-plus</a></li>
-</ul>
-
-<p><strong>欢迎补充或改善本站翻译，可以
-  <a target="_blank" href="https://github.com/Yue-plus/stomp-spec-cn/issues/new/choose">发送 Issues</a>
-  或直接 Fork 本站仓库，并提交拉取请求。</strong></p>
 
 <h2 id = "Overview">总览</h2>
 
@@ -587,7 +577,7 @@ ack:client
 <p>如果服务器无法成功创建订阅，则服务器 <strong>必须</strong> 向客户端发送一个 <code>ERROR</code> 帧，然后关闭连接。</p>
 
 <p>STOMP 服务器 <strong>可以</strong> 支持附加的服务端特定报头，以自定义订阅的传递语义。
-  详见服务端文档。</p>
+  详见相关服务端文档。</p>
 
 <h4 id = "SUBSCRIBE_id_Header">SUBSCRIBE <code>id</code> 标头</h4>
 
@@ -723,10 +713,10 @@ receipt-id:77
 
 <p>发送 <code>DISCONNECT</code> 帧后，客户端 <strong>绝不</strong> 再发送其他帧。</p>
 
-<h2 id = "Server_Frames">Server Frames</h2>
+<h2 id = "Server_Frames">服务端帧</h2>
 
-<p>The server will, on occasion, send frames to the client (in addition to the
-initial <code>CONNECTED</code> frame). These frames MAY be one of:</p>
+<p>服务端有时会向客户端发送帧（除了初始的 <code>CONNECTED</code> 帧）。
+  这些帧 <strong>可以</strong> 是以下之一：</p>
 
 <ul>
 <li><a href="#MESSAGE"><code>MESSAGE</code></a></li>
@@ -736,24 +726,20 @@ initial <code>CONNECTED</code> frame). These frames MAY be one of:</p>
 
 <h3 id = "MESSAGE">MESSAGE</h3>
 
-<p><code>MESSAGE</code> frames are used to convey messages from subscriptions to the client.</p>
+<p><code>MESSAGE</code> 帧用于将消息从订阅传递到客户端。</p>
 
-<p>The <code>MESSAGE</code> frame MUST include a <code>destination</code> header indicating the
-destination the message was sent to. If the message has been sent using
-STOMP, this <code>destination</code> header SHOULD be identical to the one used in the
-corresponding <code>SEND</code> frame.</p>
+<p><code>MESSAGE</code> 帧 <strong>必须</strong> 包含一个 <code>destination</code> 标头，指示消息发送到的目的地。
+  如果消息是使用 STOMP 发送的，那么该 <code>destination</code> 标头
+  <strong>应该</strong> 与对应的 <code>SEND</code> 帧中使用的相同。</p>
 
-<p>The <code>MESSAGE</code> frame MUST also contain a <code>message-id</code> header with a unique
-identifier for that message and a <code>subscription</code> header matching the
-identifier of the subscription that is receiving the message.</p>
+<p><code>MESSAGE</code> 帧还 <strong>必须</strong> 包含一个带有该消息唯一标识符的
+  <code>message-id</code> 标头与一个与接收该消息的订阅标识符匹配的 <code>subscription</code> 标头。</p>
 
-<p>If the message is received from a subscription that requires explicit
-acknowledgment (either <code>client</code> or <code>client-individual</code> mode) then the
-<code>MESSAGE</code> frame MUST also contain an <code>ack</code> header with an arbitrary
-value. This header will be used to relate the message to a subsequent
-<code>ACK</code> or <code>NACK</code> frame.</p>
+<p>如果从需要显式确认的订阅（<code>client</code> 或 <code>client-individual</code> 模式）接收到消息，
+  那么 <code>MESSAGE</code> 帧还 <strong>必须</strong> 包含带有任意值的 <code>ack</code> 标头。
+  该标头将用于将消息与后续的 <code>ACK</code> 或 <code>NACK</code> 帧相关。</p>
 
-<p>The frame body contains the contents of the message:</p>
+<p>帧正文包含消息的内容：</p>
 
 <pre><code>MESSAGE
 subscription:0
@@ -763,44 +749,38 @@ content-type:text/plain
 
 hello queue a^@</code></pre>
 
-<p><code>MESSAGE</code> frames SHOULD include a
-<a href="#Header&#95;content-length"><code>content-length</code></a> header and a
-<a href="#Header&#95;content-type"><code>content-type</code></a> header if a body is present.</p>
+<p>如果存在正文，那么 <code>MESSAGE</code> 帧 <strong>应该</strong> 包含
+  <a href="#Header&#95;content-length"><code>content-length</code></a> 标头与
+  <a href="#Header&#95;content-type"><code>content-type</code></a> 标头。</p>
 
-<p><code>MESSAGE</code> frames will also include all user defined headers that were present
-when the message was sent to the destination in addition to the server
-specific headers that MAY get added to the frame. Consult your server's
-documentation to find out the server specific headers that it adds to
-messages.</p>
+<p><code>MESSAGE</code> 帧除了可能添加到该帧的服务端特定的标头之外，
+  还 <strong>可以</strong> 包含将消息发送到目标时存在的所有用户定义的标头。
+  请查阅服务端文档，以了解服务端添加到消息中的特定于服务端的标头。</p>
 
 <h3 id = "RECEIPT">RECEIPT</h3>
 
-<p>A <code>RECEIPT</code> frame is sent from the server to the client once a server has
-successfully processed a client frame that requests a receipt. A <code>RECEIPT</code>
-frame MUST include the header <code>receipt-id</code>, where the value is the value of
-the <code>receipt</code> header in the frame which this is a receipt for.</p>
+<p>一旦服务端成功处理了请收据的客户端帧，就会将 <code>RECEIPT</code> 帧从服务端发送到客户端。
+  <code>RECEIPT</code> 帧 <strong>必须</strong> 包含 <code>receipt-id</code> 标头，
+  其值为收据帧中的 <code>receipt</code> 标头的值。</p>
 
 <pre><code>RECEIPT
 receipt-id:message-12345
 
 ^@</code></pre>
 
-<p>A <code>RECEIPT</code> frame is an acknowledgment that the corresponding client frame
-has been <em>processed</em> by the server. Since STOMP is stream based, the receipt
-is also a cumulative acknowledgment that all the previous frames have been
-<em>received</em> by the server. However, these previous frames may not yet be
-fully <em>processed</em>. If the client disconnects, previously received frames
-SHOULD continue to get processed by the server.</p>
+<p><code>RECEIPT</code> 帧是对相应客户端帧已被服务器 <em>处理</em> 的确认。
+  由于 STOMP 是基于流的，所以收据帧也是一个累计确认，即服务器 <em>已经接收了</em> 之前的所有帧。
+  但是，这些先前的帧可能尚未完全 <em>处理</em>。
+  如果客户端断开连接，服务器 <strong>应该</strong> 继续处理之前收到的帧。</p>
 
 <h3 id = "ERROR">ERROR</h3>
 
-<p>The server MAY send <code>ERROR</code> frames if something goes wrong. In this case, it
-MUST then close the connection just after sending the <code>ERROR</code> frame. See the
-next section about <a href="#Connection&#95;Lingering">connection lingering</a>.</p>
+<p>如果出现问题，服务端 <strong>可以</strong> 发送 <code>ERROR</code> 帧。
+  在这种情况下，<strong>必须</strong> 在发送 <code>ERROR</code> 帧后立即关闭连接。
+  详见 <a href="#Connection&#95;Lingering">连接徘徊</a> 的下一节。</p>
 
-<p>The <code>ERROR</code> frame SHOULD contain a <code>message</code> header with a short description
-of the error, and the body MAY contain more detailed information (or MAY be
-empty).</p>
+<p><code>ERROR</code> 帧 <strong>应该</strong> 包含带有错误的简短描述的 <code>message</code> 标头，
+  并且正文 <strong>可以</strong> 包含更详细的信息（也 <strong>可以</strong> 为空）。</p>
 
 <pre><code>ERROR
 receipt-id:message-12345
@@ -820,32 +800,30 @@ Did not contain a destination header, which is REQUIRED
 for message propagation.
 ^@</code></pre>
 
-<p>If the error is related to a specific frame sent from the client, the server
-SHOULD add additional headers to help identify the original frame that caused
-the error. For example, if the frame included a receipt header, the <code>ERROR</code>
-frame SHOULD set the <code>receipt-id</code> header to match the value of the <code>receipt</code>
-header of the frame which the error is related to.</p>
+<p>如果错误与从客户端发送的特定帧有关，那么服务器 <strong>应该</strong> 添加其他报头，以帮助识别导致错误的原始帧。
+  例如，如果该帧包含一个收据标头，那么 <code>ERROR</code> 帧 <strong>应该</strong>
+  将 <code>receipt-id</code> 标头设置为与相关错误帧的 <code>receipt</code> 标头值相匹配。</p>
 
-<p><code>ERROR</code> frames SHOULD include a
-<a href="#Header&#95;content-length"><code>content-length</code></a> header and a
-<a href="#Header&#95;content-type"><code>content-type</code></a> header if a body is present.</p>
+<p>如果存在正文，那么 <code>ERROR</code> 帧 <strong>应该</strong> 包含
+  <a href="#Header&#95;content-length"><code>content-length</code></a> 标头与
+  <a href="#Header&#95;content-type"><code>content-type</code></a> 标头。</p>
 
-<h2 id = "Frames_and_Headers">Frames and Headers</h2>
+<h2 id = "Frames_and_Headers">帧与标头</h2>
 
-<p>In addition to the <a href="#Standard&#95;Headers">standard headers</a> described above
-(<code>content-length</code>, <code>content-type</code> and <code>receipt</code>), here are all the headers
-defined in this specification that each frame MUST or MAY use:</p>
+<p>除上述 <a href="#Standard&#95;Headers">标准标头</a>
+  （<code>content-length</code>、<code>content-type</code> 与 <code>receipt</code>）外，
+  以下是此规范中定义的所有标头，每个帧 <strong>必须</strong> 或 <strong>可以</strong> 使用：</p>
 
 <ul>
-<li><code>CONNECT</code> or <code>STOMP</code>
+<li><code>CONNECT</code> 或 <code>STOMP</code>
 <ul>
-<li>REQUIRED: <code>accept-version</code>, <code>host</code></li>
-<li>OPTIONAL: <code>login</code>, <code>passcode</code>, <code>heart-beat</code></li>
+<li>REQUIRED: <code>accept-version</code>、<code>host</code></li>
+<li>OPTIONAL: <code>login</code>、<code>passcode</code>、<code>heart-beat</code></li>
 </ul></li>
 <li><code>CONNECTED</code>
 <ul>
 <li>REQUIRED: <code>version</code></li>
-<li>OPTIONAL: <code>session</code>, <code>server</code>, <code>heart-beat</code></li>
+<li>OPTIONAL: <code>session</code>、<code>server</code>、<code>heart-beat</code></li>
 </ul></li>
 <li><code>SEND</code>
 <ul>
@@ -854,60 +832,57 @@ defined in this specification that each frame MUST or MAY use:</p>
 </ul></li>
 <li><code>SUBSCRIBE</code>
 <ul>
-<li>REQUIRED: <code>destination</code>, <code>id</code></li>
+<li>REQUIRED: <code>destination</code>、<code>id</code></li>
 <li>OPTIONAL: <code>ack</code></li>
 </ul></li>
 <li><code>UNSUBSCRIBE</code>
 <ul>
 <li>REQUIRED: <code>id</code></li>
-<li>OPTIONAL: none</li>
+<li>OPTIONAL: 无</li>
 </ul></li>
-<li><code>ACK</code> or <code>NACK</code>
+<li><code>ACK</code> 或 <code>NACK</code>
 <ul>
 <li>REQUIRED: <code>id</code></li>
 <li>OPTIONAL: <code>transaction</code></li>
 </ul></li>
-<li><code>BEGIN</code> or <code>COMMIT</code> or <code>ABORT</code>
+<li><code>BEGIN</code> 或 <code>COMMIT</code> 或 <code>ABORT</code>
 <ul>
 <li>REQUIRED: <code>transaction</code></li>
-<li>OPTIONAL: none</li>
+<li>OPTIONAL: 无</li>
 </ul></li>
 <li><code>DISCONNECT</code>
 <ul>
-<li>REQUIRED: none</li>
+<li>REQUIRED: 无</li>
 <li>OPTIONAL: <code>receipt</code></li>
 </ul></li>
 <li><code>MESSAGE</code>
 <ul>
-<li>REQUIRED: <code>destination</code>, <code>message-id</code>, <code>subscription</code></li>
+<li>REQUIRED: <code>destination</code>、<code>message-id</code>、<code>subscription</code></li>
 <li>OPTIONAL: <code>ack</code></li>
 </ul></li>
 <li><code>RECEIPT</code>
 <ul>
 <li>REQUIRED: <code>receipt-id</code></li>
-<li>OPTIONAL: none</li>
+<li>OPTIONAL: 无</li>
 </ul></li>
 <li><code>ERROR</code>
 <ul>
-<li>REQUIRED: none</li>
+<li>REQUIRED: 无</li>
 <li>OPTIONAL: <code>message</code></li>
 </ul></li>
 </ul>
 
-<p>In addition, the <code>SEND</code> and <code>MESSAGE</code> frames MAY include arbitrary user
-defined headers that SHOULD be considered as being part of the carried
-message. Also, the <code>ERROR</code> frame SHOULD include additional headers to help
-identify the original frame that caused the error.</p>
+<p>另外，<code>SEND</code> 与 <code>MESSAGE</code> 帧 <strong>可以</strong> 包括任意用户定义的报头，
+  <strong>应该</strong> 将其视为所携带消息的一部分。
+  同样，<code>ERROR</code> 帧 <strong>应该</strong> 包含附加的标头，以帮助识别引起错误的原始帧。</p>
 
-<p>Finally, STOMP servers MAY use additional headers to give access to features
-like persistency or expiration. Consult your server's documentation for
-details.</p>
+<p>最后，STOMP 服务端 <strong>可以</strong> 使用其他标头来访问诸如持久化或过期之类的特性。
+  详见相关服务端文档</p>
 
-<h2 id = "Augmented_BNF">Augmented BNF</h2>
+<h2 id = "Augmented_BNF">增加的 BNF</h2>
 
-<p>A STOMP session can be more formally described using the
-Backus-Naur Form (BNF) grammar used in HTTP/1.1
-<a href="http://tools.ietf.org/html/rfc2616#section-2.1">RFC 2616</a>.</p>
+<p>HTTP/1.1 <a href="http://tools.ietf.org/html/rfc2616#section-2.1">RFC 2616</a>
+  中使用的 Backus-Naur（BNF）格式语法可以更正式地描述 STOMP 会话。</p>
 
 <pre><code>NULL                = &lt;US-ASCII null (octet 0)&gt;
 LF                  = &lt;US-ASCII line feed (aka newline) (octet 10)&gt;
@@ -947,13 +922,23 @@ header              = header-name ":" header-value
 header-name         = 1*&lt;any OCTET except CR or LF or ":"&gt;
 header-value        = *&lt;any OCTET except CR or LF or ":"&gt;</code></pre>
 
-<h2 id = "License">License</h2>
+<h2 id = "License">许可证</h2>
 
-<p>This specification is licensed under the
-<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution v3.0</a>
-license.</p>
+<p>本规范是根据<a href="http://creativecommons.org/licenses/by/3.0/deed.zh">知识共享 署名v3.0</a>许可证进行许可的。</p>
+
+<p>本站翻译遵循相同许可，并且在此感谢所有翻译贡献者：</p>
+
+<ul>
+  <li><a target="_blank" href="https://github.com/Yue-plus">Yue-plus</a></li>
+</ul>
+
+<p><strong>欢迎补充或改善本站翻译，可以
+  <a target="_blank" href="https://github.com/Yue-plus/stomp-spec-cn/issues/new/choose">发送 Issues</a>
+  或直接 Fork 本站仓库，并提交拉取请求。</strong></p>
+
         <div></div>
       </div>
     </div>
+    <footer style="text-align: center;">赣ICP备19008355号</footer>
   </body>
 </html>
