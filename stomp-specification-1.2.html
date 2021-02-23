@@ -62,7 +62,7 @@
     </ul></li>
     <li><a href="#Repeated_Header_Entries">重复的标头项</a></li>
     <li><a href="#Size_Limits">大小限制</a></li>
-    <li><a href="#Connection_Lingering">链接徘徊</a></li>
+    <li><a href="#Connection_Lingering">连接徘徊</a></li>
   </ul></li>
   <li><a href="#Connecting">连接中</a></li>
   <li><ul style="list-style:none;">
@@ -192,7 +192,8 @@
 
 <p>本文档中的关键字：
   <dl>
-    <dt><strong>必须</strong>（<code>MUST</code>、<code>REQUIRED</code>、<code>SHALL</code>）</dt>
+    <dt><strong>必须</strong>、<strong>必需</strong>、<strong>必要</strong>
+      （<code>MUST</code>、<code>REQUIRED</code>、<code>SHALL</code>）</dt>
     <dd>意味着这是本规范的绝对要求。</dd>
     <dt><strong>绝不</strong>（<code>MUST NOT</code>、<code>SHALL NOT</code>）</dt>
     <dd>意味着这是本规范的绝对禁止。</dd>
@@ -608,7 +609,7 @@ ack:client
   如果在客户端发送该消息的 <code>ACK</code> 帧之前连接失败，那么服务器将假定该消息尚未处理，
   <strong>可以</strong> 将消息重新传递给另一个客户端。
   客户端发送的 <code>ACK</code> 帧将被视为累积确认。
-  这意味着确认将对 <code>ACK</code> 帧中指定的消息以及在 <code>ACK</code> 消息之前发送给订阅的所有消息进行操作。</p>
+  这意味着将对 <code>ACK</code> 帧中指定的消息以及在 <code>ACK</code> 消息之前发送给订阅的所有消息进行确认操作。</p>
 
 <p>如果客户端没有处理某些消息，它 <strong>应该</strong> 发送 <code>NACK</code> 帧来告诉服务端没有消费这些消息。</p>
 
@@ -618,16 +619,13 @@ ack:client
 
 <h3 id = "UNSUBSCRIBE">UNSUBSCRIBE</h3>
 
-<p>The <code>UNSUBSCRIBE</code> frame is used to remove an existing subscription. Once the
-subscription is removed the STOMP connections will no longer receive messages
-from that subscription.</p>
+<p><code>UNSUBSCRIBE</code> 帧用于移除现有订阅。
+  移除订阅后，STOMP 连接将不再从该订阅中接收消息。</p>
 
-<p>Since a single connection can have multiple open subscriptions with a
-server, an <code>id</code> header MUST be included in the frame to uniquely identify
-the subscription to remove. This header MUST match the subscription
-identifier of an existing subscription.</p>
+<p>由于单个连接可以在服务端开启的多个订阅，因此 <code>id</code> 标头 <strong>必须</strong> 包含在帧中以唯一地标识要移除的订阅。
+  该标头 <strong>必须</strong> 匹配现有订阅的订阅标识符。</p>
 
-<p>Example:</p>
+<p>示例：</p>
 
 <pre><code>UNSUBSCRIBE
 id:0
@@ -636,15 +634,13 @@ id:0
 
 <h3 id = "ACK">ACK</h3>
 
-<p><code>ACK</code> is used to acknowledge consumption of a message from a subscription
-using <code>client</code> or <code>client-individual</code> acknowledgment. Any messages received
-from such a subscription will not be considered to have been consumed until
-the message has been acknowledged via an <code>ACK</code>.</p>
+<p><code>ACK</code> 通过使用 <code>client</code> 或 <code>client-individual</code> 来确认订阅的消息是否被消费。
+  在通过 <code>ACK</code> 确认消息之前，从此类订阅收到的任何消息都不会被视为已消费。</p>
 
-<p>The <code>ACK</code> frame MUST include an <code>id</code> header matching the <code>ack</code> header of the
-<code>MESSAGE</code> being acknowledged. Optionally, a <code>transaction</code> header MAY be
-specified, indicating that the message acknowledgment SHOULD be part of the
-named transaction.</p>
+<p><code>ACK</code> 帧 <strong>必须</strong> 包含一个与被确认
+  <code>MESSAGE</code> 的 <code>ack</code> 标头匹配的 <code>id</code> 标头。
+  可选地，<strong>可以</strong> 指定一个 <code>transaction</code> 标头，
+  指示消息确认 <strong>应该</strong> 是具名事务的一部分。</p>
 
 <pre><code>ACK
 id:12345
@@ -654,88 +650,78 @@ transaction:tx1
 
 <h3 id = "NACK">NACK</h3>
 
-<p><code>NACK</code> is the opposite of <code>ACK</code>. It is used to tell the server that the
-client did not consume the message. The server can then either send the
-message to a different client, discard it, or put it in a dead letter queue.
-The exact behavior is server specific.</p>
+<p><code>NACK</code> 与 <code>ACK</code> 相反。
+  用于告诉服务端“客户端没有消费该消息”。
+  然后，服务端可以将消息发送到其他客户端、将其丢弃或将其放入死信队列。
+  确切的行为是特定于服务端的。</p>
 
-<p><code>NACK</code> takes the same headers as <code>ACK</code>: <code>id</code> (REQUIRED) and <code>transaction</code>
-(OPTIONAL).</p>
+<p><code>NACK</code> 与 <code>ACK</code> 具有相同的标头：
+  <code>id</code>（<strong>必需</strong>） 与 <code>transaction</code>（<strong>可选</strong>））。</p>
 
-<p><code>NACK</code> applies either to one single message (if the subscription's <code>ack</code>
-mode is <code>client-individual</code>) or to all messages sent before and not yet
-<code>ACK</code>'ed or <code>NACK</code>'ed (if the subscription's <code>ack</code> mode is <code>client</code>).</p>
+<p><code>NACK</code> 适用于单一消息（如果订阅的 <code>ack</code> 模式为 <code>client-individual</code>）
+  或之前发送但尚未 <code>ACK</code> 或 <code>NACK</code> 的所有消息（如果订阅的 <code>ack</code> 模式为 <code>client</code>）。</p>
 
 <h3 id = "BEGIN">BEGIN</h3>
 
-<p><code>BEGIN</code> is used to start a transaction. Transactions in this case apply to
-sending and acknowledging - any messages sent or acknowledged during a
-transaction will be processed atomically based on the transaction.</p>
+<p><code>BEGIN</code> 用于开启事务。
+  在这种情况下，事务适用于发送与确认——事务期间发送或确认的任何消息都将基于该事务进行原子处理。</p>
 
 <pre><code>BEGIN
 transaction:tx1
 
 ^@</code></pre>
 
-<p>The <code>transaction</code> header is REQUIRED, and the transaction identifier will be
-used for <code>SEND</code>, <code>COMMIT</code>, <code>ABORT</code>, <code>ACK</code>, and <code>NACK</code> frames to bind them to
-the named transaction. Within the same connection, different transactions MUST
-use different transaction identifiers.</p>
+<p><code>transaction</code> 标头是 <strong>必需</strong> 的，并且事务标识符将用于
+  <code>SEND</code>、<code>COMMIT</code>、<code>ABORT</code>、<code>ACK</code>、<code>NACK</code> 帧，以将它们绑定到具名事务。
+  在同一连接内，不同的事务 <strong>必须</strong> 使用不同的事务标识符。</p>
 
-<p>Any started transactions which have not been committed will be implicitly
-aborted if the client sends a <code>DISCONNECT</code> frame or if the TCP connection
-fails for any reason.</p>
+<p>如果客户端发送 <code>DISCONNECT</code> 帧或 TCP 连接由于任何原因断开，那么任何尚未提交的已开启事务都将隐式中止。</p>
 
 <h3 id = "COMMIT">COMMIT</h3>
 
-<p><code>COMMIT</code> is used to commit a transaction in progress.</p>
+<p><code>COMMIT</code> 用于提交正在进行的事务。</p>
 
 <pre><code>COMMIT
 transaction:tx1
 
 ^@</code></pre>
 
-<p>The <code>transaction</code> header is REQUIRED and MUST specify the identifier of the
-transaction to commit.</p>
+<p><code>transaction</code> 标头是 <strong>必需</strong> 的，并且 <strong>必须</strong> 指定要提交的事务标识符。</p>
 
 <h3 id = "ABORT">ABORT</h3>
 
-<p><code>ABORT</code> is used to roll back a transaction in progress.</p>
+<p><code>ABORT</code> 用于回滚正在进行的事务。</p>
 
 <pre><code>ABORT
 transaction:tx1
 
 ^@</code></pre>
 
-<p>The <code>transaction</code> header is REQUIRED and MUST specify the identifier of the
-transaction to abort.</p>
+<p><code>transaction</code> 标头是 <strong>必需</strong>的，<strong>必须</strong> 指定要中止的事务标识符</p>
 
 <h3 id = "DISCONNECT">DISCONNECT</h3>
 
-<p>A client can disconnect from the server at anytime by closing the socket but
-there is no guarantee that the previously sent frames have been received by
-the server. To do a graceful shutdown, where the client is assured that all
-previous frames have been received by the server, the client SHOULD:</p>
+<p>客户端可以随时通过关闭套接字来与服务端断开连接，但不能保证服务端已接收到先前发送的帧。
+  要进行正常关闭，确保客户端已经接收到所有先前的帧，客户端 <strong>应该</strong>：</p>
 
 <ol>
-<li><p>send a <code>DISCONNECT</code> frame with a <code>receipt</code> header set. Example:</p>
+<li><p>发送带有 <code>receipt</code> 标头的 <code>DISCONNECT</code> 帧。例如：</p>
 
 <pre><code>DISCONNECT
 receipt:77
 ^@</code></pre></li>
-<li><p>wait for the <code>RECEIPT</code> frame response to the <code>DISCONNECT</code>. Example:</p>
+<li><p>等待 <code>RECEIPT</code> 帧对 <code>DISCONNECT</code> 的响应。例如：</p>
 
 <pre><code>RECEIPT
 receipt-id:77
 ^@</code></pre></li>
-<li><p>close the socket.</p></li>
+<li><p>关闭套接字。</p></li>
 </ol>
 
-<p>Note that, if the server closes its end of the socket too quickly, the
-client might never receive the expected <code>RECEIPT</code> frame. See the
-<a href="#Connection&#95;Lingering">Connection Lingering</a> section for more information.</p>
+<p>请注意，如果服务端关闭套接字末端的速度过快，那么客户端可能永远不会收到预期的 <code>RECEIPT</code> 帧。
+  详见 <a href="#Connection&#95;Lingering">连接徘徊</a>。</p>
 
-<p>Clients MUST NOT send any more frames after the <code>DISCONNECT</code> frame is sent.</p>
+<p>发送 <code>DISCONNECT</code> 帧后，客户端 <strong>绝不</strong> 再发送其他帧。</p>
 
 <h2 id = "Server_Frames">Server Frames</h2>
 
