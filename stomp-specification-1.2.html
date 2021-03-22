@@ -406,7 +406,7 @@ version:1.2
 <li><p><code>session</code>：唯一标识会话的会话标识符。</p></li>
 <li><p><code>server</code>：包含有关 STOMP 服务端信息的字段。
   该字段 <strong>必须</strong> 包含一个服务器名称字段，
-  并且 <strong>可以</strong> 在其后跟可选的注释字段，并用空格分隔。</p>
+  并且 <strong>可以</strong> 在其后跟可选的注释字段，并用空格 octet 分隔。</p>
 
 <p>服务器名称字段由名称令牌与可选的版本号令牌组成。</p>
 
@@ -785,7 +785,7 @@ receipt-id:message-12345
 <pre><code>ERROR
 receipt-id:message-12345
 content-type:text/plain
-content-length:171
+content-length:170
 message:malformed frame received
 
 The message:
